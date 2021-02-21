@@ -1,6 +1,5 @@
 // Assignment code here
 
-
 // Get references to the #generate element
 // declare your variables at the top
 var generateBtn = document.querySelector("#generate");
@@ -9,14 +8,18 @@ var uppers;
 var lowers;
 var numbers;
 var specials;
-
-
+var uppercaseLettersArray = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+var lowercaseLettersArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+var numbersArray = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+var specialCharactersArray = ['!', '#', '$', '%', '&', '(', ')', '*', '+', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@'];
 
 function passwordLength() {
   // we dont make it var length so that this variable can exist anywhere; otherwise, the variable would only exist in this area
-  length = prompt("Your password must be number between 8 and 128")
+  length = prompt("Your password must be a number between 8 and 128");
+  //console.log(length);
   // prompt user to select a number between 8 - 128. If they do not choose a number in that range, then call the funtion again and start them from the beginning. Make sure to store answer or number legnth in variable. Return legnth.
-  if ("THIS IS WHERE THE <= >= LOGIC GOES password length is less tan 8 or more than 128") {
+  //"THIS IS WHERE THE <= >= LOGIC GOES password length is less tan 8 or more than 128"
+  if (length < 8 || length > 128) {
     alert("Your password must be between 8 and 128")
     //execute this function
   }
@@ -27,59 +30,61 @@ function passwordOptions() {
   // promt user with series of confirms asking if they want specific characters. If they do not choose any, then call the fucntion again. Make sure to store the number length in variables. 
   lowers = confirm("Do you want lowercase letters in your password?");
   uppers = confirm("Do you want upper case letters in your password?");
-  numbers = confirm("");
-  specials = confirm ("");
+  numbers = confirm("Do you want numbers in your password?");
+  specials = confirm ("Do you want special characters in your password?");
 
-  if ("everything equals to false, then pop up an alert") {
-    alert("")
+  
+  //"everything equals to false, then pop up an alert"
+  if (lowers === false && uppers === false && numbers === false && specials === false) {
+    alert("You must choose at least one")
     passwordOptions()
   }
 
-
-
-  return options = {
+  return lowers, uppers, numbers, specials
   //if the key and value lowers key and value true for lowers above, then you can just name the key and add a comma ex: lowers, instead of lowers:lowers;
-    lowers,
-    uppers,
-    numbers,
-    specials,
-    }
 
 }
 
 function generatePassword() {
-  var length = passwordLength();
-  var options = passwordOptions();
-
-  var lowercaseLettersArray = [];
-  var upppercaseLettersArray = [];
+  passwordLength();
+  passwordOptions();
+ 
   var passwordGenArray = [];
+  var guaranteed = [];
 
+  // .concat
+  if (lowers) {
+    passwordGenArray = passwordGenArray.concat(lowercaseLettersArray)
+    //add a char to guaranteed
+  }
 
-// .concat
+  if (uppers) {
+    passwordGenArray = passwordGenArray.concat(uppercaseLettersArray)
+  }
 
-var passwordGenArray = [];
+  if (numbers) {
+    passwordGenArray = passwordGenArray.concat(numbersArray)
+  }
 
-if (options.lowers) {
-  passwordGenArray = passwordGenArray.concat(lowercaseLettersArray)
-}
+  if (specials) {
+    passwordGenArray = passwordGenArray.concat(specialCharactersArray)
+  }
 
-var password = "";
+  console.log(passwordGenArray);
 
-for (var i=0; i < length; i++) {
-  //choose random letter of that passwordGenArray & store it into the password. Use Math.Random & Math.Floor below
-  password = password + passwordGenArray[Math.random...]
-}
+  var password = "";
 
+  for (var i=0; i < length; i++) {
+    //choose random letter of that passwordGenArray & store it into the password. Use Math.Random & Math.Floor below
+    var index = Math.floor(Math.random() * passwordGenArray.length);
 
-if (options.uppers) {
-  passwordGenArray = passwordGenArray.concat(upppercaseLettersArray)
-}
-  //more logic here to determine what to include
+    password = password + passwordGenArray[index];
+    console.log(password);
+  }
 
-  //more logic here to loop through this to determine random letters or characters depeding on length
+  //create logic to guarantee user at least one value from the criteria they selected
   
-  //return randomly generataed password
+  return password
 }
 
 // Write password to the #password input
@@ -87,22 +92,9 @@ function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
-
 }
 
 //TODO add call functions and event listeners
 // here are the event listeners and function calls
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-console.log (options.uppers)
-
-//to make the password string togther
-
-for (var i=0; i < 10; i++) {
-  password = password + i.toString();
-  console.log(password);
-}
-
-
-
