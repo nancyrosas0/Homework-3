@@ -22,6 +22,7 @@ function passwordLength() {
   if (length < 8 || length > 128) {
     alert("Your password must be between 8 and 128")
     //execute this function
+  passwordLength()  
   }
   return length;
 }
