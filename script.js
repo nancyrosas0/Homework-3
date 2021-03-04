@@ -43,7 +43,6 @@ function passwordOptions() {
 
   return lowers, uppers, numbers, specials
   //if the key and value lowers key and value true for lowers above, then you can just name the key and add a comma ex: lowers, instead of lowers:lowers;
-
 }
 
 function generatePassword() {
@@ -51,7 +50,7 @@ function generatePassword() {
   passwordOptions();
  
   var passwordGenArray = [];
-  var guaranteed = [];
+  //var guaranteed = [];
 
   // .concat
   if (lowers) {
